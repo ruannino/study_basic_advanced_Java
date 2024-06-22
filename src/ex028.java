@@ -1,3 +1,5 @@
+import java.util.Scanner;
+import entities.ContaBancaria;
 /*Em um banco, para se cadastrar uma conta bancária, é necessário informar o número da conta, o nome do
         titular da conta, e o valor de depósito inicial que o titular depositou ao abrir a conta. Este valor de depósito
         inicial, entretanto, é opcional, ou seja: se o titular não tiver dinheiro a depositar no momento de abrir sua
@@ -14,6 +16,48 @@
         mostrando os dados da conta após cada operação.*/
 public class ex028 {
     public static void main(String[] args){
+        Scanner teclado = new Scanner(System.in);
 
+        // Cadastro da classe
+        System.out.print("Informe o número da conta: ");
+        int numeroConta = teclado.nextInt();
+        teclado.nextLine();
+
+        System.out.print("Informe o nome do titular: ");
+        String nomeTitular = teclado.nextLine();
+
+
+        System.out.print("Deseja fazer um deposito inicial ? [s/n] ");
+        char resposta = teclado.next().charAt(0);
+
+        ContaBancaria conta;
+
+        if (resposta == 's' || resposta == 'S') {
+            System.out.print("Informe o valor do depósito inicial: ");
+            double depositoInicial = teclado.nextDouble();
+            conta = new ContaBancaria(numeroConta, nomeTitular, depositoInicial);
+        } else {
+            conta = new ContaBancaria(numeroConta, nomeTitular);
+        }
+
+        // Exibir dados da conta
+        System.out.println("\nDados da conta: ");
+        System.out.println(conta);
+        // Realizar depósito
+        System.out.println("\nInforme um valor para depósito: ");
+        double valorDeposito = teclado.nextDouble();
+        conta.depositar(valorDeposito);
+        // Exibir dados atualizados após depósito
+        System.out.println("\nDados da conta atualizados: ");
+        System.out.println(conta);
+        // Realizar saque
+        System.out.println("\nInforme um  valor para saque: ");
+        double valorSaque = teclado.nextDouble();
+        conta.sacar(valorSaque);
+        // Exibir dados atualizados após saque
+        System.out.println("\nDados da conta atualizados: ");
+        System.out.println(conta);
+
+        teclado.close();
     }
 }
